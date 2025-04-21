@@ -50,6 +50,13 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+# gpu
+exec --no-startup-id optimus-manager --startup
+
+#display
+exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
+bindsym $mod+Shift+P exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
+
 #Screenshots
 bindsym Print exec --no-startup-id maim ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim)
 bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim)
@@ -244,14 +251,15 @@ exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:alt_sh
 #set wallpaper
 #exec --no-startup-id feh --bg-scale ~/Pictures/wallpaperflare.com_wallpaper.jpg
 #exec_always feh --bg-scale ~/Pictures/wallpaperflare.com_wallpaper.jpg
-exec_always feh --bg-scale ~/Pictures/monkey-d-luffy-16712.jpg
+exec_always feh --bg-scale ~/Pictures/1350317.png
 
 #open firefox
 bindsym $mod+Shift+b exec firefox --new-window
 
 #status bar
 #exec --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id sh ~/.config/polybar/launch.sh
+#exec --no-startup-id sh ~/.config/polybar/launch.sh
+exec --no-startup-id polybar
 
 #open telegram
 bindsym $mod+Shift+t exec telegram-desktop
@@ -269,7 +277,7 @@ bindsym $mod+Shift+v exec kitty -e yazi
 #exec_always picom --corner-radius 10 -f -D 5
 #exec_always picom
 #exec --no-startup-id picom -CGb --config ~/.config/piom.conf
-exec --no-startup-id picom --config ~/.config/picom.conf
+#exec --no-startup-id picom --config ~/.config/picom.conf
 
 #brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
