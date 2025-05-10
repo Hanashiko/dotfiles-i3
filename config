@@ -14,24 +14,45 @@ smart_borders on
 # Start XDG autostart .desktop files
 exec --no-startup-id dex --autostart --environment i3
 # Auto lock screen
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --blur 5 --clock --time-color=ffffff --date-color=ffffff --time-str="%H:%M" --date-str="%A, %d %B" --verif-text="Перевірка" --wrong-text="Пусто" --noinput-text="Пусто" --inside-color=00000066 --ring-color=5e81acaa --keyhl-color=d8dee9ee --line-color=00000000 --insidewrong-color=bf616a80 --ringwrong-color=bf616a --pass-media-keys --pass-screen-keys --indicator
 # Lock screen by keyboard
-bindsym $mod+shift+x exec betterlockscreen -l dim
+#bindsym $mod+shift+x exec betterlockscreen -l dim
+#bindsym $mod+Shift+X exec --no-startup-id i3lock --blur 5 --clock --time-color=ffffff --date-color=ffffff --time-str="%H:%M" --date-str="$(xkb-switch -p) | %A, %d %B" --verif-text="Перевірка" --wrong-text="Пусто" --noinput-text="Пусто" --inside-color=00000066 --ring-color=5e81acaa --keyhl-color=d8dee9ee --line-color=00000000 --insidewrong-color=bf616a80 --ringwrong-color=bf616a --pass-media-keys --pass-screen-keys --indicator 
+bindsym $mod+Shift+X exec --no-startup-id i3lock -c 000000 --clock --time-color=ffffff --date-color=ffffff --date-str="$(xkb-switch -p)"
 # Network manager
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 # GPU
 exec --no-startup-id optimus-manager --startup
 # Display from GPU HDMI port
-exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
+#exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
 bindsym $mod+Shift+P exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
-#Screenshots
-bindsym Print exec --no-startup-id maim ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim)
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim))
-bindsym Shift+Print exec --no-startup-id maim --select ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim)
-#Clipboard Screenshots
-bindsym Ctrl+Print exec --no-startup-id maim ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim)
-bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim))
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select ~/Pictures/$(date +%Y-%m-%d--%H-%M-%S_maim)
+#bindsym $mod+Shift+O exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --same-as eDP-1
+#bindsym $mod+Shift+O exec --no-startup-id prime-run xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1-0 --same-as eDP-1 --scale-from 1920x1080
+# only main screen
+#bindsym $mod+Shift+O exec --no-startup-id xrandr --output eDP-1 --auto --output HDMI-1-0 --off
+# only second screen
+#bindsym $mod+Shift+I exec --no-startup-id xrandr --output HDMI-1-0 --auto --output eDP-1 --off
+#picom
+#exec --no-startup-id picom --config ~/.config/picom/picom.conf
+#bindsym $mod+Ctrl+Shift+P exec --no-startup-id picom --config ~/.config/picom/picom.conf
+# Screenshots
+# Full screen into file
+bindsym Print exec --no-startup-id maim ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+# Full screen into clipboard 
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+# Active screen into file 
+bindsym Shift+Print exec --no-startup-id maim -o -g $(xrandr | grep ' connected primary' | cut -d' ' -f4) ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+# Active screen into clipboard
+bindsym Ctrl+Shift+Print exec --no-startup-id maim -o -g $(xrandr | grep ' connected primary' | cut -d' ' -f4) | xclip -selection clipboard -t image/png
+# Active window into file 
+bindsym $mod+Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+# Active window into clipboard 
+bindsym Ctrl+$mod+Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+# Selected area into file 
+bindsym $mod+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png 
+# Selected area into clipboard 
+bindsym Ctrl+$mod+Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 # Adjust volume
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -49,11 +70,12 @@ floating_modifier $mod
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+q kill
 # start dmenu (a program launcher)
-bindsym $mod+Shift+d exec --no-startup-id dmenu_run
+#bindsym $mod+Shift+d exec --no-startup-id dmenu_run
+bindsym $mod+Shift+d exec ~/.config/rofi/bin/launcher
 
 # change focus
 bindsym $mod+j focus left
@@ -132,7 +154,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # reload the configuration file for i3 and polybar
 bindsym $mod+shift+r exec --no-startup-id "i3-msg restart; polybar-msg cmd restart"
 # log out
-bindsym $mod+Shift+e exec i3-msg exit
+#bindsym $mod+Shift+e exec i3-msg exit
+bindsym $mod+Shift+e exec ~/.config/rofi/bin/powermenu
 # turn off
 bindsym $mod+Shift+Ctrl+e exec systemctl poweroff
 
