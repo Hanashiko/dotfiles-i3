@@ -188,6 +188,7 @@ exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:alt_sh
 exec_always feh --bg-scale ~/.config/i3/wallpaper.jpg
 # status bar
 exec --no-startup-id polybar
+# bindsym $mod+Shift+U exec --no-startup-id polybar
 #brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
