@@ -11,6 +11,8 @@ gaps inner 13
 gaps outer 6
 smart_borders on
 
+bindsym Ctrl+Alt+t exec kitty
+
 # Start XDG autostart .desktop files
 exec --no-startup-id dex --autostart --environment i3
 # Auto lock screen
@@ -207,5 +209,5 @@ bindsym $mod+Shift+v exec kitty -e yazi
 bindsym $mod+Shift+f exec dolphin
 # open vs code
 bindsym $mod+Shift+c exec code
-
-
+# run keepassxc
+bindsym $mod+Shift+N exec keepassxc
