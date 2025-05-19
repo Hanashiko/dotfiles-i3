@@ -202,7 +202,7 @@ bindsym $mod+Shift+b exec firefox --new-window
 # open telegram
 bindsym $mod+Shift+t exec telegram-desktop
 # open spotify
-bindsym $mod+Shift+m exec spotify-launcher
+#bindsym $mod+Shift+m exec spotify-launcher
 # open terminal files reader
 bindsym $mod+Shift+v exec kitty -e yazi
 # open dolphin files manager
