@@ -16,14 +16,9 @@ bindsym Ctrl+Alt+t exec kitty
 # Start XDG autostart .desktop files
 exec --no-startup-id dex --autostart --environment i3
 # Auto lock screen
-#exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --blur 5 --clock --time-color=ffffff --date-color=ffffff --time-str="%H:%M" --date-str="%A, %d %B" --verif-text="Перевірка" --wrong-text="Пусто" --noinput-text="Пусто" --inside-color=00000066 --ring-color=5e81acaa --keyhl-color=d8dee9ee --line-color=00000000 --insidewrong-color=bf616a80 --ringwrong-color=bf616a --pass-media-keys --pass-screen-keys --indicator
 # Lock screen by keyboard
-#bindsym $mod+shift+x exec betterlockscreen -l dim
-#bindsym $mod+Shift+X exec --no-startup-id i3lock --blur 5 --clock --time-color=ffffff --date-color=ffffff --time-str="%H:%M" --date-str="$(xkb-switch -p) | %A, %d %B" --verif-text="Перевірка" --wrong-text="Пусто" --noinput-text="Пусто" --inside-color=00000066 --ring-color=5e81acaa --keyhl-color=d8dee9ee --line-color=00000000 --insidewrong-color=bf616a80 --ringwrong-color=bf616a --pass-media-keys --pass-screen-keys --indicator 
 bindsym $mod+Shift+X exec --no-startup-id i3lock -c 000000 --clock --time-color=ffffff --date-color=ffffff --date-str="$(xkb-switch -p)"
-# Network manager
-#exec --no-startup-id nm-applet
 # GPU
 exec --no-startup-id optimus-manager --startup
 # Display from GPU HDMI port
