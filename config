@@ -314,14 +314,25 @@ bindsym $mod+Shift+y exec --no-startup-id gcolor3
 # EMERGENCY & SYSTEM SHORTCUTS
 # ========================================
 
-# Kill all windows in current workspace (nuclear option)
-bindsym $mod+Shift+Ctrl+q [workspace="__focused__"] kill
-
-# Restart network
-bindsym $mod+Shift+Ctrl+w exec --no-startup-id sudo systemctl restart iwd
-
-# Toggle touchpad
-bindsym $mod+F1 exec --no-startup-id xinput toggle "$(xinput list --name-only | grep -i touchpad)"
-
 # System monitor
 bindsym $mod+Shift+Escape exec --no-startup-id alacritty -e btop
+
+# ========================================
+# WINDOW RULES & AUTOMATION
+# ========================================
+
+# Float specific applications:
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
+for_window [class="Gcolor3"] floating enable
+for_window [class="keepassxc" window_role="MainWindow"] floating enable
+
+# Assign applicaions to specific workspaces:
+assign [class="TelegramDesktop"] $ws3
+assign [class="firefox"] $ws10
+assign [class="Code"] $ws3
+assign [class="Spotify"] $ws1
+
+# Always float picture-in-picture windows
+for_window [title="Picture-in-Picture"] floating enable, sticky enable
