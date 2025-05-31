@@ -304,6 +304,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # ========================================
-# EXTRA FEATURES
+# AUTO ASSIGNS APPLICATIONS
 # ========================================
+
+# Automatically open Telegram on the 3rd desktop
 assign [class="TelegramDesktop"] $ws3
