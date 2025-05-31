@@ -206,11 +206,6 @@ bindsym $mod+Insert exec --no-startup-id clipmenu
 # Color picker
 bindsym $mod+Shift+y exec --no-startup-id gcolor3
 
-bindsym $mod+Mod1+Return exec alacritty --title=scratchpad
-for_window [title="scratchpad"] move to scratchpad, floating enable, resize set 800 600
-bindsym $mod+Shift+Return scratchpad show
-
-
 # ========================================
 # MEDIA AND SYSTEM CONTROLS
 # ========================================
