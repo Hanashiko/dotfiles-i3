@@ -1,11 +1,14 @@
 ### i3 config file (v5) 
 ### by Hanashiko
 
-## =========== Basic settings ===========
+# ========================================
+# BASIC SETTINGS
+# ========================================
+
 # Modifier key
 set $mod Mod4
 
-# Fonts:
+# Font configuration
 font pango:JetBrainsMonoBold 9
 
 # Window appearance:
@@ -14,71 +17,98 @@ gaps inner 13
 gaps outer 6
 smart_borders on
 
-# Floating modifier:
-floating_modifier $mod
-tiling_drag modifier titlebar
+# ========================================
+# STARTUP APPLICATIONS
+# ========================================
 
-
-## =========== Autostart ===========
-# Autostart XDG applicaions
+# XDG autostart applicaions
 exec --no-startup-id dex --autostart --environment i3
 
-# Auto lock screen
+# Screen lock configuration 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --blur 5 --clock --time-color=ffffff --date-color=ffffff --time-str="%H:%M" --date-str="%A, %d %B" --verif-text="Перевірка" --wrong-text="Пусто" --noinput-text="Пусто" --inside-color=00000066 --ring-color=5e81acaa --keyhl-color=d8dee9ee --line-color=00000000 --insidewrong-color=bf616a80 --ringwrong-color=bf616a --pass-media-keys --pass-screen-keys --indicator
 
 # GPU management
 exec --no-startup-id optimus-manager --startup
 
-# Set keyboard latout
+# Keyboard layout (US/Ukrainian with Alt+Shift toggle)
 exec_always "setxkbmap -model pc104 -layout us,ua -varian ,, -option grp:alt_shift_toggle"
 
-# Set wallpaper
+# Wallpaper
 exec_always feh --bg-scale ~/.config/i3/wallpaper.jpg
 
-# Start polybar
+# Status bar
 exec --no-startup-id polybar
 
-# Start gnome-keyring for Wi-Fi passwords
+# Gnome keyring for Wi-Fi passwords
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 
+# Compositor
+# exec --no-startup-id picom --config ~/.config/picom/picom.conf
 
-## =========== Navigating and managing windows ===========
-# Focus window:
+# ========================================
+# WINDOW MANAGEMENT
+# ========================================
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# Move tiling windows via drag & drop
+tiling_drag modifier titlebar
+
+# Kill focused window
+bindsym $mod+q kill
+
+# Toggle fullscreen
+bindsym $mod+f fullscreen toggle
+
+# Toggle floating/tiling
+bindsym $mod+Shift+space focus mode_toggle
+
+# Focus parent/child container:
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+
+# Change container layout:
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Split containers
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# ========================================
+# FOCUS AND MOVEMENT
+# ========================================
+
+# Change focus (vim-style):
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
-# Move window:
+# Change focus (arrow keys):
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window (vim-style):
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
 
-# Split orientation:
-bindsym $mod+h split h
-bindsym $mod+v split v
+# Move focused window (arrow keys):
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
-# Fullscreen toggle
-bindsym $mod+f fullscreen toggle
+# ========================================
+# WORKSPACES
+# ========================================
 
-# Toggle floating
-bindsym $mod+Shift+space floating toggle
-
-# Focus mode toggle
-bindsym $mod+space focus mode_toggle
-
-# Focus parent/child:
-bindsym $mod+a focus parent
-bindsym $mod+d focus child
-
-# Layout modes:
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-
-## =========== Workspaces ===========
 # Define workspace names:
 set $ws1 "1"
 set $ws2 "2"
@@ -115,161 +145,141 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# ========================================
+# DISPLAY MANAGEMENT
+# ========================================
 
-## =========== Resize mode ===========
-mode "resize" {
-    bindsym j resize shrink width 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize shrink height 10 px or 10 ppt
-    bindsym semicolon resize grow width 10 px or 10 ppt
+# Extend display to the right (HDMI)
+bindsym $mod+Ctrl+p exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
 
-    # Arrow keys:
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+# Mirror displays (HDMI)
+bindsym $mod+Ctrl+m exec --no-startup-id prime-run xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1-0 --same-as eDP-1 --scale-from 1920x1080
 
-    # Exit resize mode:
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $mod+r mode "default"
-}
+# Use only laptop screen (disconnect external)
+bindsym $mod+Ctrl+i exec --no-startup-id xrandr --output eDP-1 --auto --output HDMI-1-0 --off
 
-# Enter resize mode
-bindsym $mod+r mode "resize"
+# Use only external screen (disconnect laptop)
+bindsym $mod+Ctrl+o exec --no-startup-id xrandr --output HDMI-1-0 --auto --output eDP-1 --off
+
+# ========================================
+# APPLICATIONS SHORTCUTS
+# ========================================
 
 
-## =========== Screenshots ===========
-# Full screen to file
-bindsym Print exec --no-startup-id maim ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+# Terminal applications
+bindsym $mod+Return exec alacritty
 
-# Full screen to clipboard
-bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+# Application launcher
+bindsym $mod+d exec ~/.config/rofi/bin/launcher
 
-# Active screen to file
-bindsym Shift+Print exec --no-startup-id maim -o -g $(xrandr | grep ' connected primary' | cut -d' ' -f4) ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+# File managers
+bindsym $mod+Shift+v exec kitty -e yazi  # Terminal file manager
+bindsym $mod+Shift+f exec dolphin       # GUI file manager
 
-# Active screen to clipboard
-bindsym Ctrl+Shift+Print exec --no-startup-id maim -o -g $(xrandr | grep ' connected primary' | cut -d' ' -f4) | xclip -selection clipboard -t image/png
+# Applications
+bindsym $mod+Shift+b exec firefox --new-window
+bindsym $mod+Shift+t exec telegram-desktop
+bindsym $mod+Shift+c exec code
+bindsym $mod+Shift+n exec keepassxc
+bindsym $mod+Shift+o exec obsidian
 
-# Active window to file
-bindsym $mod+Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+# Spotify
+# bindsym $mod+Shift+m exec spotify-launcher
 
-# Active window to clipboard
-bindsym Ctrl+$mod+Shift+Print exec --no-startup-id maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+# ========================================
+# MEDIA AND SYSTEM CONTROLS
+# ========================================
 
-# Selected area to file
-bindsym $mod+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png 
-
-# Selected area to clipboard
-bindsym Ctrl+$mod+Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
-
-
-## =========== Volume and brightness ===========
 # Volume control:
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
+# Media controls (fn keys):
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+
+# Media controls (arrow keys)
+bindsym $mod+Ctrl+Right exec --no-startup-id playerctl next
+bindsym $mod+Ctrl+Left exec --no-startup-id playerctl previous
+bindsym $mod+Ctrl+space exec --no-startup-id playerctl play-pause
+
 # Brightness control:
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 
+# ========================================
+# SCREENSHOT SHORTCUTS
+# ========================================
 
-## =========== Media control ===========
-# Next song
-bindsym Ctrl+Shift+plus exec --no-startup-id playerctl next
-# Previous song
-bindsym Ctrl+Shift+minux exec --no-startup-id playerctl previous
+# Full screen screenshot to file
+bindsym Print exec --no-startup-id maim ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+
+# Full screen screenshot to clipboard
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+
+# Active screen screenshot to file
+bindsym Shift+Print exec --no-startup-id maim -o -g $(xrandr | grep ' connected primary' | cut -d' ' -f4) ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+
+# Active screen screenshot to clipboard
+bindsym Ctrl+Shift+Print exec --no-startup-id maim -o -g $(xrandr | grep ' connected primary' | cut -d' ' -f4) | xclip -selection clipboard -t image/png
+
+# Active window screenshot to file
+bindsym $mod+Print exec --no-startup-id maim -i $(xdotool getactivewindow) ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+
+# Active window screenshot to clipboard
+bindsym $mod+Ctrl+Print exec --no-startup-id maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+
+# Selected area screenshot to file
+bindsym $mod+Shift+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%Y-%m-%d--%H-%M-%S).png
+
+# Selected area screenshot to clipboard
+bindsym $mod+Ctrl+Shift+Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 
 
-## =========== Blocking and terminating the session ===========
+# ========================================
+# SYSTEM CONTROLS
+# ========================================
+
 # Lock screen
-bindsym $mod+Shift+X exec --no-startup-id i3lock -c 000000 --clock --time-color=ffffff --date-color=ffffff --date-str="$(xkb-switch -p)"
+bindsym $mod+Shift+x exec --no-startup-id i3lock -c 000000 --clock --time-color=ffffff --date-color=ffffff --date-str="$(xkb-switch -p)"
 
-# Reload i3 and polybar
+# Reload i3 and polybar configuration
 bindsym $mod+Shift+r exec --no-startup-id "i3-msg restart; polybar-msg cmd restart"
 
-# Power menu
+# Power menu (rofi-based)
 bindsym $mod+Shift+e exec ~/.config/rofi/bin/powermenu
 
-# Shutdown
+# Direct power off (emergency)
 bindsym $mod+Shift+Ctrl+e exec systemctl poweroff
 
+# Toggle compositor
+# bindsym $mod+Ctrl+Shift+p exec --no-startup-id picom --config ~/.config/picom/picom.conf
 
-## =========== Launching programmes ===========
-# Terminal
-bindsym $mod+Return exec alacritty
+# ========================================
+# RESIZE MODE
+# ========================================
 
-# Application launcher
-bindsym $mod+Shift+d exec ~/.config/rofi/bin/launcher
+mode "resize" {
+        # Resize with vim-style keys:
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+        
+        # Resize with arrow keys:
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+        
+        # Exit resize mode:
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
 
-# Web browser
-bindsym $mod+Shift+b exec firefox --new-window
-
-# Telegram
-bindsym $mod+Shift+t exec telegram-desktop
-
-# File manager
-bindsym $mod+Shift+f exec dolphin
-
-# Terminal file manager
-bindsym $mod+Shift+v  exec alacritty -e yazi
-
-# Code editor
-bindsym $mod+Shift+c exec code
-
-# Password manager
-bindsym $mod+Shift+o exec obsidian
-
-
-
-
-
-
-
-
-
-bindsym Ctrl+Alt+t exec kitty
-# Display from GPU HDMI port
-#exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
-bindsym $mod+Shift+P exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
-#bindsym $mod+Shift+O exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --same-as eDP-1
-#bindsym $mod+Shift+O exec --no-startup-id prime-run xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1-0 --same-as eDP-1 --scale-from 1920x1080
-# only main screen
-#bindsym $mod+Shift+O exec --no-startup-id xrandr --output eDP-1 --auto --output HDMI-1-0 --off
-# only second screen
-#bindsym $mod+Shift+I exec --no-startup-id xrandr --output HDMI-1-0 --auto --output eDP-1 --off
-#picom
-#exec --no-startup-id picom --config ~/.config/picom/picom.conf
-#bindsym $mod+Ctrl+Shift+P exec --no-startup-id picom --config ~/.config/picom/picom.conf
-# start a terminal
-# kill focused window
-bindsym $mod+q kill
-# start dmenu (a program launcher)
-#bindsym $mod+Shift+d exec --no-startup-id dmenu_run
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# bindsym $mod+Shift+U exec --no-startup-id polybar
-
-# open firefox
-# open telegram
-# open spotify
-#bindsym $mod+Shift+m exec spotify-launcher
-# open terminal files reader
-# bindsym $mod+Shift+v exec kitty -e yazi
-# open dolphin files manager
-# open vs code
-# run keepassxc
-# run obsidian
+# Enter resize mode
+bindsym $mod+r mode "resize"
