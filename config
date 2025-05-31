@@ -302,3 +302,8 @@ mode "resize" {
 
 # Enter resize mode
 bindsym $mod+r mode "resize"
+
+# ========================================
+# EXTRA FEATURES
+# ========================================
+assign [class="TelegramDesktop"] $ws3
