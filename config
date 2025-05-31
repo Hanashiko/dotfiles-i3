@@ -173,7 +173,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+d exec ~/.config/rofi/bin/launcher
 
 # File managers
-bindsym $mod+Shift+v exec kitty -e yazi  # Terminal file manager
+bindsym $mod+Shift+v exec alacritty -e yazi  # Terminal file manager
 bindsym $mod+Shift+f exec dolphin       # GUI file manager
 
 # Applications
