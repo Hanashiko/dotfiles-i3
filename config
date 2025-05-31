@@ -152,6 +152,10 @@ bindsym $mod+Shift+Tab move container to workspace back_and_forth
 # Quick applicaion switching
 bindsym Mod1+Tab exec --no-startup-id ~/.config/rofi/bin/window
 
+# Switch to a judicious workspace
+bindsym $mod+Mod1+Right workspace next
+bindsym $mod+Mod1+Left workspace prev
+
 # ========================================
 # DISPLAY MANAGEMENT
 # ========================================
