@@ -297,48 +297,66 @@ bindsym $mod+Ctrl+Shift+Left move workspace to output left
 bindsym $mod+Ctrl+Shift+Right move workspace to output right
 
 # Scratchpad (hidden workspace for temporary windows):
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus scratchpad show
 
 # Make current window sticky (shows on all workspaces)
-bindsym $mod+Shift+S sticky toggle
+# bindsym $mod+Shift+S sticky toggle
 
 # Quick applicaion switching
 bindsym Mod1+Tab exec --no-startup-id rofi -show window
 # bindsym Mod1+Tab exec --no-startup-id ~/.config/rofi/bin/launcher
 
 # Center floating window
-bindsym $mod+c move position center
+# bindsym $mod+c move position center
 
 # Move floating window to corners/edges:
-bindsym $mod+Ctrl+1 move position 0 0 # Top-left
-bindsym $mod+Ctrl+2 move position center 0 # Top-center
-bindsym $mod+Ctrl+3 move position 100ppt 0 # Top-right
-bindsym $mod+Ctrl+4 move position 0 center # Middle-left
-bindsym $mod+Ctrl+6 move position 100ppt center # Middle-right
-bindsym $mod+Ctrl+7 move position 0 100ppt # Bottom-left
-bindsym $mod+Ctrl+8 move position center 100ppt # Bottom-center
-bindsym $mod+Ctrl+9 move position 100ppt 100ppt # Bottom-right
+# bindsym $mod+Ctrl+1 move position 0 0 # Top-left
+# bindsym $mod+Ctrl+2 move position center 0 # Top-center
+# bindsym $mod+Ctrl+3 move position 100ppt 0 # Top-right
+# bindsym $mod+Ctrl+4 move position 0 center # Middle-left
+# bindsym $mod+Ctrl+6 move position 100ppt center # Middle-right
+# bindsym $mod+Ctrl+7 move position 0 100ppt # Bottom-left
+# bindsym $mod+Ctrl+8 move position center 100ppt # Bottom-center
+# bindsym $mod+Ctrl+9 move position 100ppt 100ppt # Bottom-right
 
 # ========================================
 # SMART GAPS AND LAYOUT MANAGEMENT
 # ========================================
 
 # Toggle gaps on/off
-bindsym $mod+g gaps inner current toggle 13
+# bindsym $mod+g gaps inner current toggle 13
 
 # Adjuct gaps dynamically:
-bindsym $mod+plus gaps inner current plus 5
-bindsym $mod+Shift+plus gaps outer current plus 5
-bindsym $mod+minus gaps inner current minus 5
-bindsym $mod+Shift+minus gaps outer current minus 5
+# bindsym $mod+plus gaps inner current plus 5
+# bindsym $mod+Shift+plus gaps outer current plus 5
+# bindsym $mod+minus gaps inner current minus 5
+# bindsym $mod+Shift+minus gaps outer current minus 5
 
 # Reset gaps to default
-bindsym $mod+Ctrl+g gaps inner current set 13; gaps outer current set 6
+# bindsym $mod+Ctrl+g gaps inner current set 13; gaps outer current set 6
 
 # Smart borders toggle
-bindsym $mod+b border toggle
+# bindsym $mod+b border toggle
 
 # ========================================
 # QUICK LAUNCHERS & UTILITIES
 # ========================================
+
+# Quick calculator
+bindsym $mod+equal exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
+
+# Clipboard manager
+bindsym $mod+Insert exec --no-startup-id clipmenu
+
+# Color picker
+bindsym $mod+Shift+y exec --no-startup-id gcolor3
+
+# Quick note taking
+bindsym $mod+n exec --no-startup-id alacritty -e nvim ~/Documents/quick-notes.md
+
+# Password maanger quick access
+bindsym $mod+p exec --no-startup-id keepassxc --auto-type
+
+# Network manager
+bindsym $mod+Shift+w exec --no-startup-id nm-connection-editor
