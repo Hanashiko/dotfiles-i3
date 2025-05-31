@@ -180,7 +180,7 @@ bindsym $mod+Shift+f exec dolphin       # GUI file manager
 bindsym $mod+Shift+b exec firefox --new-window
 bindsym $mod+Shift+t exec telegram-desktop
 bindsym $mod+Shift+c exec code
-bindsym $mod+Shift+n exec keepassxc
+bindsym $mod+Shift+p exec keepassxc
 bindsym $mod+Shift+o exec obsidian
 
 # Spotify
