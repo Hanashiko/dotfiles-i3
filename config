@@ -31,7 +31,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --blur 5 --clock -
 exec --no-startup-id optimus-manager --startup
 
 # Keyboard layout (US/Ukrainian with Alt+Shift toggle)
-exec_always "setxkbmap -model pc104 -layout us,ua -varian ,, -option grp:alt_shift_toggle"
+exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:alt_shift_toggle"
 
 # Wallpaper
 exec_always feh --bg-scale ~/.config/i3/wallpaper.jpg
