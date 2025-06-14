@@ -209,6 +209,9 @@ bindsym $mod+Insert exec --no-startup-id clipmenu
 # Color picker
 bindsym $mod+Shift+y exec --no-startup-id gcolor3
 
+# Git Utility
+bindsym $mod+Shift+g exec gitkraken
+
 # ========================================
 # MEDIA AND SYSTEM CONTROLS
 # ========================================
