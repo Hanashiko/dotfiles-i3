@@ -45,6 +45,9 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 # Compositor
 # exec --no-startup-id picom --config ~/.config/picom/picom.conf
 
+# Auto tailing
+exec_always autotiling -w 1 2 3 4 5 6 7 
+
 # ========================================
 # WINDOW MANAGEMENT
 # ========================================
@@ -192,7 +195,8 @@ bindsym $mod+Shift+f exec dolphin       # GUI file manager
 
 # Applications
 bindsym $mod+Shift+b exec firefox --new-window
-bindsym $mod+Shift+t exec telegram-desktop
+# bindsym $mod+Shift+t exec telegram-desktop
+bindsym $mod+Shift+t exec Telegram
 bindsym $mod+Shift+c exec code
 bindsym $mod+Shift+p exec keepassxc
 bindsym $mod+Shift+o exec obsidian
@@ -312,4 +316,4 @@ bindsym $mod+r mode "resize"
 # ========================================
 
 # Automatically open Telegram on the 3rd desktop
-assign [class="TelegramDesktop"] $ws3
+assign [class="Telegram"] $ws3
