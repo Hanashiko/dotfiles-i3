@@ -34,10 +34,12 @@ exec --no-startup-id optimus-manager --startup
 exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:alt_shift_toggle"
 
 # Wallpaper
-exec_always feh --bg-scale ~/.config/i3/wallpaper.jpg
+exec_always feh --bg-scale ~/Pictures/wallps/ritusya-1.jpg
+# exec_always feh --bg-scale ~/.config/i3/wallpaper.jpg
 
 # Status bar
-exec --no-startup-id polybar
+# exec --no-startup-id polybar
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # Gnome keyring for Wi-Fi passwords
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
@@ -274,6 +276,9 @@ bindsym $mod+Shift+x exec --no-startup-id i3lock -c 000000 --clock --time-color=
 
 # Reload i3 and polybar configuration
 bindsym $mod+Shift+r exec --no-startup-id "i3-msg restart; polybar-msg cmd restart"
+
+# Restart polybar
+bindsym $mod+Ctrl+s exec --no-startup-id ~/.config/polybar/launch.sh
 
 # Power menu (rofi-based)
 bindsym $mod+Shift+e exec ~/.config/rofi/bin/powermenu
