@@ -31,6 +31,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --blur 5 --clock -
 exec --no-startup-id optimus-manager --startup
 
 # Keyboard layout (US/Ukrainian with Alt+Shift toggle)
+# exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,,, -option grp:alt_shift_toggle"
 exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:alt_shift_toggle"
 
 # Wallpaper
@@ -166,7 +167,8 @@ bindsym $mod+Mod1+Left workspace prev
 # ========================================
 
 # Extend display to the right (HDMI)
-bindsym $mod+Ctrl+p exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
+# bindsym $mod+Ctrl+p exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
+bindsym $mod+Ctrl+p exec --no-startup-id prime-run xrandr --output HDMI-1-0 --mode 1920x1080 --rate 99.61 --right-of eDP-1
 
 # Mirror displays (HDMI)
 bindsym $mod+Ctrl+m exec --no-startup-id prime-run xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1-0 --same-as eDP-1 --scale-from 1920x1080
@@ -175,7 +177,8 @@ bindsym $mod+Ctrl+m exec --no-startup-id prime-run xrandr --output eDP-1 --mode 
 bindsym $mod+Ctrl+i exec --no-startup-id xrandr --output eDP-1 --auto --output HDMI-1-0 --off
 
 # Use only external screen (disconnect laptop)
-bindsym $mod+Ctrl+o exec --no-startup-id xrandr --output HDMI-1-0 --auto --output eDP-1 --off
+# bindsym $mod+Ctrl+o exec --no-startup-id xrandr --output HDMI-1-0 --auto --output eDP-1 --off
+bindsym $mod+Ctrl+o exec --no-startup-id xrandr --output HDMI-1-0 --mode 1920x1080 --rate 99.61 --output eDP-1 --off
 
 # Move workspace to different output/monitor:
 bindsym $mod+Ctrl+Shift+Left move workspace to output left
@@ -213,6 +216,9 @@ bindsym $mod+Shift+y exec --no-startup-id gcolor3
 
 # Git Utility
 bindsym $mod+Shift+g exec gitkraken
+
+# Sound controller
+bindsym $mod+Shift+s exec pavucontrol
 
 # ========================================
 # MEDIA AND SYSTEM CONTROLS
