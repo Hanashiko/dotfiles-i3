@@ -7,6 +7,7 @@
 
 # Modifier key
 set $mod Mod4
+# set $mod Mod1
 
 # Font configuration
 font pango:JetBrainsMonoBold 9
@@ -31,12 +32,12 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --blur 5 --clock -
 exec --no-startup-id optimus-manager --startup
 
 # Keyboard layout (US/Ukrainian with Alt+Shift toggle)
-# exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,,, -option grp:alt_shift_toggle"
+#exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,,, -option grp:alt_shift_toggle"
 exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:alt_shift_toggle"
 
 # Wallpaper
-exec_always feh --bg-scale ~/Pictures/wallps/ritusya-1.jpg
-# exec_always feh --bg-scale ~/.config/i3/wallpaper.jpg
+#exec_always feh --bg-scale ~/Pictures/wallps/ritusya-1.jpg
+exec_always feh --bg-scale ~/.config/i3/wallpaper.jpg
 
 # Status bar
 # exec --no-startup-id polybar
@@ -169,6 +170,8 @@ bindsym $mod+Mod1+Left workspace prev
 # Extend display to the right (HDMI)
 # bindsym $mod+Ctrl+p exec --no-startup-id prime-run xrandr --output HDMI-1-0 --auto --right-of eDP-1
 bindsym $mod+Ctrl+p exec --no-startup-id prime-run xrandr --output HDMI-1-0 --mode 1920x1080 --rate 99.61 --right-of eDP-1
+#Extend display to the left (HDMI)
+bindsym $mod+Ctrl+l exec --no-startup-id prime-run xrandr --output HDMI-1-0 --mode 1920x1080 --rate 99.61 --left-of eDP-1
 
 # Mirror displays (HDMI)
 bindsym $mod+Ctrl+m exec --no-startup-id prime-run xrandr --output eDP-1 --mode 1920x1080 --output HDMI-1-0 --same-as eDP-1 --scale-from 1920x1080
@@ -204,6 +207,7 @@ bindsym $mod+Shift+t exec Telegram
 bindsym $mod+Shift+c exec code
 bindsym $mod+Shift+p exec keepassxc
 bindsym $mod+Shift+o exec obsidian
+bindsym $mod+Shift+m exec termius
 
 # Spotify
 # bindsym $mod+Shift+m exec spotify-launcher
